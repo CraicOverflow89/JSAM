@@ -22,7 +22,10 @@ class JSAM {
 		this.rule(/_([^_]*)_/, "<i>$1</i>"),
 
 		// Strikethrough Format
-		this.rule(/~~([^~]*)~~/, "<s>$1</s>")
+		this.rule(/~~([^~]*)~~/, "<s>$1</s>"),
+
+		// Line Break
+		this.rule(/\n\n/, "<br>")
 	]
 
 	convert(element: HTMLElement) {
