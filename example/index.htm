@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JSAM Test</title>
+		<!--<script src = "res/jsam.min.js"></script>-->
+		<script src = "https://raw.githubusercontent.com/CraicOverflow89/JSAM/master/res/jsam.min.js"></script>
+		<style>
+			code {
+				font-family: monospace;
+			}
+		</style>
+	</head>
+	<body onLoad = "jsam.convert(document.getElementById('md_test'))">
+		<span id = "md_test">
+# title
+
+`single line code`
+
+paragraph
+
+**bold text**
+
+_italic text_
+
+~~strikethrough text~~
+
+```
+multiline
+code
+```
+		</span>
+	</body>
+</html>

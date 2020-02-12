@@ -61,6 +61,3 @@ interface JSAMRule {
 	replace: string
 	absolute: boolean
 }
-
-// Create Parser
-const jsam = new JSAM()
