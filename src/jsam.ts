@@ -2,16 +2,16 @@ class JSAM {
 	ruleList: Array<JSAMRule> = [
 
 		// Code Examples
-		this.rule(/```\n([^`]*)\n```/, "<pre><code>$1</code></pre>", true),
-		this.rule(/`([^`]*)`/, "<pre><code>$1</code></pre>", true),
+		this.rule(/```\n([^`]*)\n```/, "<pre><code>$1</code></pre>"),
+		this.rule(/`([^`]*)`/, "<pre><code>$1</code></pre>"),
 
 		// Inline Headers
-		this.rule(/###### ([^#]*)/, "<h6>$1</h6>"),
-		this.rule(/##### ([^#]*)/, "<h5>$1</h5>"),
-		this.rule(/#### ([^#]*)/, "<h4>$1</h4>"),
-		this.rule(/### ([^#]*)/, "<h3>$1</h3>"),
-		this.rule(/## ([^#]*)/, "<h2>$1</h2>"),
-		this.rule(/# ([^#]*)/, "<h1>$1</h1>"),
+		this.rule(/###### ([^#\n]*)\n/, "<h6>$1</h6>"),
+		this.rule(/##### ([^#\n]*)\n/, "<h5>$1</h5>"),
+		this.rule(/#### ([^#\n]*)\n/, "<h4>$1</h4>"),
+		this.rule(/### ([^#\n]*)\n/, "<h3>$1</h3>"),
+		this.rule(/## ([^#\n]*)\n/, "<h2>$1</h2>"),
+		this.rule(/# ([^#\n]*)\n/, "<h1>$1</h1>"),
 
 		// Bold Format
 		this.rule(/\*\*([^*]*)\*\*/, "<b>$1</b>"),
@@ -26,32 +26,23 @@ class JSAM {
 	]
 
 	convert(element: HTMLElement) {
-		const input = element.innerHTML.replace(/\r/g, "")
-		element.innerHTML = input.split("\n\n").map((it) => {
 
-			// Iterate Rules
-			this.ruleList.some((rule) => {
+		// Parse Element
+		let input = element.innerHTML.replace(/\r/g, "")
 
-				// Absolute Rules
-				if(rule.absolute) {
-					if(it.match(rule.match)) {
-						it = it.replace(rule.match, rule.replace)
-						return true
-					}
-				}
+		// Iterate Rules
+		this.ruleList.forEach((rule) => {
+			input = input.replace(rule.match, rule.replace)
+		})
 
-				// Partial Rules
-				it = it.replace(rule.match, rule.replace)
-			})
-			return it
-		}).join("<br>")
+		// Update Element
+		element.innerHTML = input
 	}
 
-	private rule(match: RegExp, replace: string, absolute: boolean = false): JSAMRule {
+	private rule(match: RegExp, replace: string): JSAMRule {
 		return {
 			match: match,
-			replace: replace,
-			absolute: absolute
+			replace: replace
 		}
 	}
 }
@@ -59,5 +50,7 @@ class JSAM {
 interface JSAMRule {
 	match: RegExp
 	replace: string
-	absolute: boolean
 }
+
+// Create Parser
+const jsam = new JSAM()

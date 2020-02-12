@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JSAM Example</title>
+		<script src = "res/jsam.min.js"></script>
+		<style>
+			* {
+				font-family: apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+			}
+			code {
+				font-family: monospace;
+			}
+		</style>
+	</head>
+	<body onLoad = "jsam.convert(document.getElementById('md_test'))">
+		<span id = "md_test">
+# Main Header
+
+standard line of text
+
+content with some **bold** text, _italic_ text and some ~~strikethrough~~ as well.
+
+### Minor Header
+
+This demonstrates the code example;
+
+```
+multiline
+code
+example
+```
+		</span>
+	</body>
+</html>
