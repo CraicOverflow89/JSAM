@@ -17,10 +17,21 @@ You can pass the parser a particular element to convert;
 jsam.convert(document.getElementById("my_element"))
 ```
 
+### Build Steps
+
+It's currently very easy to get a working version.
+
+```
+$tsc src/jsam.ts
+$jsmin src res
+```
+
 ### Tasks
 
- - need to add greater support of the general markdown language
+ - add greater support of the general markdown language
+ - expand the `convert` method to accept _varagrs_ and maybe parse document for elements to process
 
 ### See Also
 
  - [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+ - [JavaScript Minifer](https://github.com/CraicOverflow89/JavaScript-Minifier)
