@@ -1,7 +1,7 @@
 JSAM Project
 ============
 
-JavaScript Active Markdown parser converts _markdown_ format to _html_ on the clientside.
+JavaScript Active Markdown parser converts _markdown_ format to _html_ on the clientside. There is **no release** at this moment.
 
 ### Usage
 
