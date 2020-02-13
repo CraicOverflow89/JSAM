@@ -5,6 +5,10 @@ class JSAM {
 		this.rule(/```\n([^`]*)\n```/, "<pre><code>$1</code></pre>"),
 		this.rule(/`([^`]*)`/, "<pre><code>$1</code></pre>"),
 
+		// Multiline Headers
+		this.rule(/([^\n]*)\n(=)+/, "<h1>$1</h1>"),
+		this.rule(/([^\n]*)\n(-)+/, "<h2>$1</h2>"),
+
 		// Inline Headers
 		this.rule(/###### ([^#\n]*)\n/, "<h6>$1</h6>"),
 		this.rule(/##### ([^#\n]*)\n/, "<h5>$1</h5>"),
