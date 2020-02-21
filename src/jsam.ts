@@ -6,8 +6,9 @@ class JSAM {
 		this.rule(/`([^`]*)`/g, "<code>$1</code>"),
 
 		// Multiline Headers
-		this.rule(/([^\n]*)\n(=)+\n/g, "<h1>$1</h1>"),
-		this.rule(/([^\n]*)\n(-)+\n/g, "<h2>$1</h2>"),
+		this.rule(/([^\n]+)\n(=)+\n/g, "<h1>$1</h1>"),
+		this.rule(/([^\n]+)\n(-)+\n/g, "<h2>$1</h2>"),
+		// NOTE: there might be some minimum char requirements to add here
 
 		// Inline Headers
 		this.rule(/###### ([^#\n]*)\n/g, "<h6>$1</h6>"),
@@ -16,6 +17,9 @@ class JSAM {
 		this.rule(/### ([^#\n]*)\n/g, "<h3>$1</h3>"),
 		this.rule(/## ([^#\n]*)\n/g, "<h2>$1</h2>"),
 		this.rule(/# ([^#\n]*)\n/g, "<h1>$1</h1>"),
+
+		// Horizontal Rule
+		this.rule(/\n\n(---|\*\*\*|___)\n\n/g, "<hr>"),
 
 		// Bold Format
 		this.rule(/\*\*([^*]*)\*\*/g, "<b>$1</b>"),

@@ -30,7 +30,6 @@ $jsmin src res
 
  - add greater support of the general markdown language
     - blockquotes
-    - horizontal rule
 	- images
 	- links
     - nested lists
