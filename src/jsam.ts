@@ -3,7 +3,7 @@ class JSAM {
 
 		// Code Examples
 		this.rule(/```\n([^`]*)\n```/g, "<pre><code>$1</code></pre>"),
-		this.rule(/`([^`]*)`/g, "<pre><code>$1</code></pre>"),
+		this.rule(/`([^`]*)`/g, "<code>$1</code>"),
 
 		// Multiline Headers
 		this.rule(/([^\n]*)\n(=)+\n/g, "<h1>$1</h1>"),
