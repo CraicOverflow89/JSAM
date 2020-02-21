@@ -28,11 +28,12 @@ $jsmin src res
 
 ### Tasks
 
- - add greater support of the general markdown language
-    - blockquotes
-    - nested lists
+ - add support for nested lists
  - expand the `convert` method to accept _varagrs_ and maybe parse document for elements to process
- - test that multiple instances of ordered and unordered lists are treated correctly
+
+### Issues
+
+ - second ordered and unordered lists don't work correctly
 
 ### See Also
 
