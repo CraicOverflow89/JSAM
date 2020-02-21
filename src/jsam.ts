@@ -32,8 +32,23 @@ class JSAM {
 		// Strikethrough Format
 		this.rule(/~~([^~]*)~~/g, "<s>$1</s>"),
 
+		// Blockquotes
+		this.ruleComplex(/(?:&gt; [^\n]+\n)+/g, (match) => {
+			console.log("blockquote", match)
+			const result: Array<string> = []
+			result.push("<blockquote>")
+			result.push(match.split("\n").map((item: string) => {
+				console.log("item", item)
+				return item.replace(/&gt; ([^\n]+)/, "$1")
+				// NOTE: all instances being replaced here - is this doing next quote as well?
+				//       maybe force only one OR make new RegExp with actual item string
+			}).join("<br>"))
+			result.push("</blockquote>")
+			return result.join("")
+		}),
+
 		// Ordered Lists
-		this.ruleComplex(/(?: [0-9]\. ([^\n]*)\n)+/g, (match) => {
+		this.ruleComplex(/(?: [0-9]\. [^\n]*\n)+/g, (match) => {
 			const result: Array<string> = []
 			result.push("<ol>")
 			match.split("\n").forEach((item: string) => {
@@ -44,7 +59,7 @@ class JSAM {
 		}),
 
 		// Unordered Lists
-		this.ruleComplex(/(?: - ([^\n]*)\n)+/g, (match) => {
+		this.ruleComplex(/(?: - [^\n]*\n)+/g, (match) => {
 			const result: Array<string> = []
 			result.push("<ul>")
 			match.split("\n").forEach((item: string) => {
@@ -67,7 +82,7 @@ class JSAM {
 	convert(element: HTMLElement) {
 
 		// Parse Element
-		let input = element.innerHTML.replace(/\r/g, "")
+		let input = element.innerHTML.replace(/\r/g, "").replace(/>/g, "&gt;")
 
 		// Iterate Rules
 		this.ruleList.forEach((rule) => {

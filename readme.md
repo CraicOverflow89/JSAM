@@ -32,6 +32,7 @@ $jsmin src res
     - blockquotes
     - nested lists
  - expand the `convert` method to accept _varagrs_ and maybe parse document for elements to process
+ - test that multiple instances of ordered and unordered lists are treated correctly
 
 ### See Also
 
