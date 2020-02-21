@@ -55,7 +55,10 @@ class JSAM {
 		}),
 
 		// Images
-		this.rule(/\[([^\[\]\n]+)\]\(([^\[\]\n]+)\)/g, "<img src = \"$2\" alt = \"$1\" title = \"$1\" />"),
+		this.rule(/!\[([^\[\]\n]+)\]\(([^\[\]\n]+)\)/g, "<img src = \"$2\" alt = \"$1\" title = \"$1\" />"),
+
+		// Links
+		this.rule(/\[([^\[\]\n]+)\]\(([^\[\]\n]+)\)/g, "<a href = \"$2\">$1</a>"),
 
 		// Line Break
 		this.rule(/\n\n/g, "<br><br>")
