@@ -33,22 +33,24 @@ class JSAM {
 		this.rule(/~~([^~]*)~~/g, "<s>$1</s>"),
 
 		// Blockquotes
-		this.ruleComplex(/(?:&gt; [^\n]+\n)+/g, (match) => {
+		this.ruleComplex(/(?:&gt; [^\n]+\n)+/, (match) => {
 			console.log("blockquote", match)
 			const result: Array<string> = []
 			result.push("<blockquote>")
 			result.push(match.split("\n").map((item: string) => {
 				console.log("item", item)
-				return item.replace(/&gt; ([^\n]+)/, "$1")
-				// NOTE: all instances being replaced here - is this doing next quote as well?
-				//       maybe force only one OR make new RegExp with actual item string
+				return item.replace(/&gt; ([^\n]+)\n/, "$1")
 			}).join("<br>"))
 			result.push("</blockquote>")
+			console.log("result", result)
 			return result.join("")
 		}),
+		// NOTE: all instances of blockquote will be replaced with this result
+		//       the complex rule needs to invoke replace for each instance
+		//       and don't use the global flag in the pattern
 
 		// Ordered Lists
-		this.ruleComplex(/(?: [0-9]\. [^\n]*\n)+/g, (match) => {
+		this.ruleComplex(/(?: [0-9]\. [^\n]*\n)+/, (match) => {
 			const result: Array<string> = []
 			result.push("<ol>")
 			match.split("\n").forEach((item: string) => {
@@ -59,7 +61,7 @@ class JSAM {
 		}),
 
 		// Unordered Lists
-		this.ruleComplex(/(?: - [^\n]*\n)+/g, (match) => {
+		this.ruleComplex(/(?: - [^\n]*\n)+/, (match) => {
 			const result: Array<string> = []
 			result.push("<ul>")
 			match.split("\n").forEach((item: string) => {
