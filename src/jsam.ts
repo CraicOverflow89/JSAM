@@ -28,6 +28,28 @@ class JSAM {
 		// Strikethrough Format
 		this.rule(/~~([^~]*)~~/g, "<s>$1</s>"),
 
+		// Ordered Lists
+		this.ruleComplex(/(?: [0-9]\. ([^\n]*)\n)+/g, (match) => {
+			const result: Array<string> = []
+			result.push("<ol>")
+			match.split("\n").forEach((item: string) => {
+				result.push(item.replace(/ [0-9]\. ([^\n]*)/, "<li>$1</li>"))
+			})
+			result.push("</ol><br>")
+			return result.join("")
+		}),
+
+		// Unordered Lists
+		this.ruleComplex(/(?: - ([^\n]*)\n)+/g, (match) => {
+			const result: Array<string> = []
+			result.push("<ul>")
+			match.split("\n").forEach((item: string) => {
+				result.push(item.replace(/ - ([^\n]*)/, "<li>$1</li>"))
+			})
+			result.push("</ul><br>")
+			return result.join("")
+		}),
+
 		// Line Break
 		this.rule(/\n\n/g, "<br><br>")
 	]
@@ -39,7 +61,7 @@ class JSAM {
 
 		// Iterate Rules
 		this.ruleList.forEach((rule) => {
-			input = input.replace(rule.match, rule.replace)
+			input = rule.invoke(input)
 		})
 
 		// Update Element
@@ -47,16 +69,51 @@ class JSAM {
 	}
 
 	private rule(match: RegExp, replace: string): JSAMRule {
-		return {
-			match: match,
-			replace: replace
-		}
+		return new JSAMRuleSimple(match, replace)
+	}
+
+	private ruleComplex(match: RegExp, replace: ((match: string) => string)): JSAMRule {
+		return new JSAMRuleComplex(match, replace)
+	}
+	// NOTE: is it possible to have one rule method that takes arg of type string or Function
+	//       to determine which class to create?
+}
+
+abstract class JSAMRule {
+	match: RegExp
+
+	constructor(match: RegExp) {
+		this.match = match
+	}
+
+	abstract invoke(input: string): string
+}
+
+class JSAMRuleComplex extends JSAMRule {
+	replace: Function
+
+	constructor(match: RegExp, replace: ((match: string) => string)) {
+		super(match)
+		this.replace = replace
+	}
+
+	invoke(input: string): string {
+		const result = input.match(this.match)
+		return result == null ? input : input.replace(this.match, this.replace(result[0]))
 	}
 }
 
-interface JSAMRule {
-	match: RegExp
+class JSAMRuleSimple extends JSAMRule {
 	replace: string
+
+	constructor(match: RegExp, replace: string) {
+		super(match)
+		this.replace = replace
+	}
+
+	invoke(input: string): string {
+		return input.replace(this.match, this.replace)
+	}
 }
 
 // Create Parser

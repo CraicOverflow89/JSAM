@@ -29,6 +29,10 @@ $jsmin src res
 ### Tasks
 
  - add greater support of the general markdown language
+    - horizontal rule
+	- images
+	- links
+    - nested lists
  - expand the `convert` method to accept _varagrs_ and maybe parse document for elements to process
 
 ### See Also
