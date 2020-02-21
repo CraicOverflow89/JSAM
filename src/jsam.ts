@@ -34,20 +34,14 @@ class JSAM {
 
 		// Blockquotes
 		this.ruleComplex(/(?:&gt; [^\n]+\n)+/, (match) => {
-			console.log("blockquote", match)
 			const result: Array<string> = []
 			result.push("<blockquote>")
 			result.push(match.split("\n").map((item: string) => {
-				console.log("item", item)
-				return item.replace(/&gt; ([^\n]+)\n/, "$1")
+				return item.replace(/&gt; ([^\n]+)/, "$1")
 			}).join("<br>"))
 			result.push("</blockquote>")
-			console.log("result", result)
 			return result.join("")
 		}),
-		// NOTE: all instances of blockquote will be replaced with this result
-		//       the complex rule needs to invoke replace for each instance
-		//       and don't use the global flag in the pattern
 
 		// Ordered Lists
 		this.ruleComplex(/(?: [0-9]\. [^\n]*\n)+/, (match) => {
@@ -125,8 +119,11 @@ class JSAMRuleComplex extends JSAMRule {
 	}
 
 	invoke(input: string): string {
-		const result = input.match(this.match)
-		return result == null ? input : input.replace(this.match, this.replace(result[0]))
+		let result: RegExpMatchArray
+		while((result = input.match(this.match)) != null) {
+			input = input.replace(result[0], this.replace(result[0]))
+		}
+		return input
 	}
 }
 
