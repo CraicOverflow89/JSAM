@@ -54,6 +54,9 @@ class JSAM {
 			return result.join("")
 		}),
 
+		// Images
+		this.rule(/\[([^\[\]\n]+)\]\(([^\[\]\n]+)\)/g, "<img src = \"$2\" alt = \"$1\" title = \"$1\" />"),
+
 		// Line Break
 		this.rule(/\n\n/g, "<br><br>")
 	]
