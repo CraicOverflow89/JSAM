@@ -31,10 +31,6 @@ $jsmin src res
  - add support for nested lists
  - expand the `convert` method to accept _varagrs_ and maybe parse document for elements to process
 
-### Issues
-
- - second ordered and unordered lists don't work correctly
-
 ### See Also
 
  - [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
