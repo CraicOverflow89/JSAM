@@ -75,10 +75,10 @@ class JSAM {
 		this.rule(/\n\n/g, "<br><br>")
 	]
 
-	convert(element: HTMLElement) {
+	convert(source: HTMLElement, target: HTMLElement = null) {
 
 		// Parse Element
-		let input = element.innerHTML.replace(/\r/g, "").replace(/>/g, "&gt;")
+		let input = source.innerHTML.replace(/\r/g, "").replace(/>/g, "&gt;")
 
 		// Iterate Rules
 		this.ruleList.forEach((rule) => {
@@ -86,7 +86,8 @@ class JSAM {
 		})
 
 		// Update Element
-		element.innerHTML = input
+		const output = target == null ? source : target
+		output.innerHTML = input
 	}
 
 	private rule(match: RegExp, replace: string): JSAMRule {
