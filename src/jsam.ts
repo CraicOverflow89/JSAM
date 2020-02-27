@@ -78,7 +78,8 @@ class JSAM {
 	convert(source: HTMLElement, target: HTMLElement = null) {
 
 		// Parse Element
-		let input = source.innerHTML.replace(/\r/g, "").replace(/>/g, "&gt;")
+		let input = source instanceof HTMLTextAreaElement ? source.value : source.innerHTML
+		input = input.replace(/\r/g, "").replace(/>/g, "&gt;")
 
 		// Iterate Rules
 		this.ruleList.forEach((rule) => {
