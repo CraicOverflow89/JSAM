@@ -44,24 +44,24 @@ class JSAM {
 		}),
 
 		// Ordered Lists
-		this.ruleComplex(/(?: [0-9]\. [^\n]*\n)+/, (match) => {
+		this.ruleComplex(/(?:^[0-9]\. [^\n]+$)(?:\n^[0-9]\. [^\n]+$)*/m, (match) => {
 			const result: Array<string> = []
 			result.push("<ol>")
-			match.split("\n").forEach((item: string) => {
-				result.push(item.replace(/ [0-9]\. ([^\n]*)/, "<li>$1</li>"))
-			})
-			result.push("</ol><br>")
+			result.push(match.split("\n").map((item: string) => {
+				return item.replace(/[0-9]\. ([^\n]*)/, "<li>$1</li>")
+			}).join(""))
+			result.push("</ol>")
 			return result.join("")
 		}),
 
 		// Unordered Lists
-		this.ruleComplex(/(?: - [^\n]*\n)+/, (match) => {
+		this.ruleComplex(/(?:^ - [^\n]+$)(?:\n^ - [^\n]+$)*/m, (match) => {
 			const result: Array<string> = []
 			result.push("<ul>")
-			match.split("\n").forEach((item: string) => {
-				result.push(item.replace(/ - ([^\n]*)/, "<li>$1</li>"))
-			})
-			result.push("</ul><br>")
+			result.push(match.split("\n").map((item: string) => {
+				return item.replace(/ - ([^\n]*)/, "<li>$1</li>")
+			}).join(""))
+			result.push("</ul>")
 			return result.join("")
 		}),
 
