@@ -34,4 +34,4 @@ $jsmin src res
 ### See Also
 
  - [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
- - [JavaScript Minifer](https://github.com/CraicOverflow89/JavaScript-Minifier)
+ - [JavaScript Minifier](https://github.com/CraicOverflow89/JavaScript-Minifier)
