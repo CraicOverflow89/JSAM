@@ -31,7 +31,7 @@ $jsmin src res
  - add support for nested lists
  - update multiline header rules with minimum character count requirements
  - check if more than a single digit is allowed when creating ordered lists
- - replace instances of `\n` required with `$` and `/m` where possible
+ - replace instances of `\n` required with `/^*$/m` where possible
  - expand the `convert` method to accept _varagrs_ and maybe parse document for elements to process
 
 ### See Also
